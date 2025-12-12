@@ -1,4 +1,5 @@
 ﻿using NAudio.Wave;
+using System.IO;
 
 namespace EnDecodeMessage
 {
@@ -94,6 +95,7 @@ namespace EnDecodeMessage
             //        Console.WriteLine("File has been written");
             //    }
             //}
+            waveReader.Close();
         }
 
         //Функция декодирования зашифрованного сообщения из WAV-файла
@@ -131,6 +133,16 @@ namespace EnDecodeMessage
             }
             waveReader.Close(); // Закрываем поток
             return "Error 0: no message";//Ошибка, если сообщение не найдется (Разделитель)
+        }
+
+        static public string ReadFromFile(string NameFileMessage)
+        {
+            string message = string.Empty;
+            using (StreamReader reader = new StreamReader(NameFileMessage))
+            {
+                message =  reader.ReadToEnd();
+            }
+            return message;
         }
     }
 }
